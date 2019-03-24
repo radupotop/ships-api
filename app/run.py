@@ -8,13 +8,17 @@ from schema import ShipsSchema
 
 app = Flask(__name__)
 
-index_args = {'imo': fields.Int()}
-
 
 @app.route('/api/ships/')
-@use_args(index_args)
-def index(args):
+def ships():
     result = Ships.select()
+    schema = ShipsSchema(many=True)
+    return jsonify({'result': schema.dump(result).data})
+
+
+@app.route('/api/positions/<imo>')
+def positions(imo):
+    result = Ships.select().where(Ships.imo == imo).order_by(Ships.timestamp.desc())
     schema = ShipsSchema(many=True)
     return jsonify({'result': schema.dump(result).data})
 
