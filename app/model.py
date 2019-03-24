@@ -14,5 +14,5 @@ class BaseModel(pw.Model):
 class Ships(BaseModel):
     imo = pw.IntegerField()
     timestamp = pw.DateTimeField()
-    latitude = pw.CharField()
-    longitude = pw.CharField()
+    latitude = pw.DoubleField()
+    longitude = pw.DoubleField()
