@@ -18,7 +18,7 @@ def ships():
     return jsonify(schema.dump(result).data)
 
 
-@app.route('/api/positions/<imo>')
+@app.route('/api/positions/<int:imo>')
 def positions(imo):
     result = (
         Positions.select()
@@ -27,6 +27,7 @@ def positions(imo):
     )
     if not result:
         return jsonify([]), 404
+
     schema = PositionsSchema(many=True)
     return jsonify(schema.dump(result).data)
 
