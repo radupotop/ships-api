@@ -12,7 +12,12 @@ class BaseModel(pw.Model):
 
 
 class Ships(BaseModel):
-    imo = pw.IntegerField()
+    imo = pw.PrimaryKeyField()
+    name = pw.CharField()
+
+
+class Positions(BaseModel):
+    imo = pw.ForeignKeyField(Ships, field='imo', backref='positions')
     timestamp = pw.DateTimeField()
     latitude = pw.DoubleField()
     longitude = pw.DoubleField()
