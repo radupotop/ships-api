@@ -1,3 +1,14 @@
+Each part of the app runs in a separate Docker container
+orchestrated using `docker-compose`.
+
+- db
+- app
+- setup
+
+The `setup` is intended to run only once.
+
+The tests are the only exception, they run inside a `venv`.
+
 # Building and running
 
 The setup container is only meant to be run once when initially
