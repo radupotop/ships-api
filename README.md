@@ -12,8 +12,8 @@ The running app can be found at <http://localhost:8000/>
 
 The API can be found at:
 
-http://localhost:8000/api/ships/
-http://localhost:8000/api/positions/9632179
+- http://localhost:8000/api/ships/
+- http://localhost:8000/api/positions/9632179
 
 # Running Tests
 
