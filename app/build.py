@@ -1,14 +1,34 @@
-from model import db, Ships, Positions
 import csv
 
+from psycopg2 import connect
+from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 
-def build_db():
+import config
+from model import Positions, Ships, db
+
+
+def create_db():
+    """
+    Create DB with psycopg2 since peewee does not support db creation.
+    """
+    con = connect(host=config.DB_HOST, user=config.DB_USER, password=config.DB_PASS)
+    con.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
+    cur = con.cursor()
+    cur.execute('CREATE DATABASE {}'.format(config.DB_NAME))
+    cur.close()
+    con.close()
+
+
+def create_tables():
+    """
+    Create tables with peewee.
+    """
     db.connect()
     db.create_tables((Ships, Positions))
 
 
 def import_csv_ships():
-    with open('../ships.csv') as f:
+    with open('../setup/ships.csv') as f:
         reader = csv.reader(f)
         with db.atomic():
             for row in reader:
@@ -16,7 +36,7 @@ def import_csv_ships():
 
 
 def import_csv_positions():
-    with open('../positions.csv') as f:
+    with open('../setup/positions.csv') as f:
         reader = csv.reader(f)
         with db.atomic():
             for row in reader:
@@ -25,6 +45,7 @@ def import_csv_positions():
                 )
 
 
-build_db()
+create_db()
+create_tables()
 import_csv_ships()
 import_csv_positions()
