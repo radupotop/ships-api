@@ -1,6 +1,4 @@
 from flask import Flask, Response, abort, jsonify, logging, render_template
-from webargs import fields
-from webargs.flaskparser import use_args
 
 from model import Positions, Ships, db
 from schema import PositionsSchema, ShipsSchema
