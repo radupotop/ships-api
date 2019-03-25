@@ -32,4 +32,5 @@ def positions(imo):
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=8000)
+    # The server needs to listen on ANY address for Docker to bind properly
+    app.run(debug=True, port=8000, host='0.0.0.0')
