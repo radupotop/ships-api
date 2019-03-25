@@ -25,6 +25,8 @@ def positions(imo):
         .where(Positions.imo == imo)
         .order_by(Positions.timestamp.desc())
     )
+    if not result:
+        return jsonify([]), 404
     schema = PositionsSchema(many=True)
     return jsonify(schema.dump(result).data)
 
