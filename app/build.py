@@ -45,7 +45,8 @@ def import_csv_positions():
                 )
 
 
-create_db()
-create_tables()
-import_csv_ships()
-import_csv_positions()
+if __name__ == '__main__':
+    create_db()
+    create_tables()
+    import_csv_ships()
+    import_csv_positions()
