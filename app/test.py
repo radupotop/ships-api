@@ -29,6 +29,10 @@ class PoleStarTest(unittest.TestCase):
         response = self.test_client.get('/api/positions/{}'.format(imo))
         self.assertEqual(response.status_code, 200)
 
+    def test_bogus_ship_imo(self):
+        response = self.test_client.get('/api/positions/123')
+        self.assertEqual(response.status_code, 404)
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
