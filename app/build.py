@@ -4,7 +4,7 @@ from psycopg2 import connect
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 
 import config
-from model import Positions, Ships, db
+from api.model import Positions, Ships, db
 
 
 def create_db():

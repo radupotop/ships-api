@@ -1,36 +1,11 @@
-from flask import Flask, Response, abort, jsonify, logging, render_template
+from flask import Flask
 
-from model import Positions, Ships, db
-from schema import PositionsSchema, ShipsSchema
+from api.views import api
+from frontend.views import frontend
 
 app = Flask(__name__)
-
-
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-
-@app.route('/api/ships/')
-def ships():
-    result = Ships.select()
-    schema = ShipsSchema(many=True)
-    return jsonify(schema.dump(result).data)
-
-
-@app.route('/api/positions/<int:imo>')
-def positions(imo):
-    result = (
-        Positions.select()
-        .where(Positions.imo == imo)
-        .order_by(Positions.timestamp.desc())
-    )
-    if not result:
-        return jsonify([]), 404
-
-    schema = PositionsSchema(many=True)
-    return jsonify(schema.dump(result).data)
-
+app.register_blueprint(api, url_prefix='/api')
+app.register_blueprint(frontend, url_prefix='/')
 
 if __name__ == '__main__':
     # The server needs to listen on ANY address for Docker to bind properly
