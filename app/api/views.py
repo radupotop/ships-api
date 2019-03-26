@@ -1,6 +1,6 @@
 from flask import Blueprint, abort, jsonify, logging
 
-from .model import Positions, Ships, db
+from .model import Positions, Ships
 from .schema import PositionsSchema, ShipsSchema
 
 api = Blueprint('api', __name__)
