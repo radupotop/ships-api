@@ -21,7 +21,12 @@ def positions(imo):
         .order_by(Positions.timestamp.desc())
     )
     if not result:
-        return jsonify([]), 404
+        return abort(404)
 
     schema = PositionsSchema(many=True)
     return jsonify(schema.dump(result).data)
+
+
+@api.errorhandler(404)
+def page_not_found(e):
+    return jsonify('Not Found'), 404
